@@ -1,7 +1,7 @@
 const mongoose=require("mongoose");
 const animalSchema=mongoose.Schema({
     nombre:{
-        typre:String,
+        type:String,
         required:true,
     },
     edad:{
