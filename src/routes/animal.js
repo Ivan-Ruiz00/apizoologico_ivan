@@ -60,7 +60,8 @@ router.get(
 router.get(
     "/animalitos/in/:edad",(req,res)=>{
         let { edad } = req.params;
-        animalSchema.find({edad:{$in:edad}}).then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
+        let edadArray=edad.split(',').map(e => Number(e));
+        animalSchema.find({edad:{$in:edadArray}}).then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
 );
 
