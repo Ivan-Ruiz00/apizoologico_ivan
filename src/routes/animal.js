@@ -1,64 +1,65 @@
 const express= require("express");
 const router=express.Router();
 const animalSchema=require("../models/animalModel");
+const verifyToken = require('./validate_token');
 
 router.post(
-    "/animalitos",(req,res)=>{
+    "/animalitos",verifyToken,(req,res)=>{
         let animal=animalSchema(req.body);
         animal.save().then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
 );
 
 router.get(
-    "/animalitos",(req,res)=>{
+    "/animalitos",verifyToken,(req,res)=>{
         animalSchema.find().then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
 );
 
 router.get(
-    "/animalitos/igual/:edad",(req,res)=>{
+    "/animalitos/igual/:edad",verifyToken,(req,res)=>{
         let { edad } = req.params;
         animalSchema.find({edad:{$eq:edad}}).then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
 );
 
 router.get(
-    "/animalitos/noigual/:edad",(req,res)=>{
+    "/animalitos/noigual/:edad",verifyToken,(req,res)=>{
         let { edad } = req.params;
         animalSchema.find({edad:{$ne:edad}}).then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
 );
 
 router.get(
-    "/animalitos/greater/:edad",(req,res)=>{
+    "/animalitos/greater/:edad",verifyToken,(req,res)=>{
         let { edad } = req.params;
         animalSchema.find({edad:{$gt:edad}}).then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
 );
 
 router.get(
-    "/animalitos/greatequal/:edad",(req,res)=>{
+    "/animalitos/greatequal/:edad",verifyToken,(req,res)=>{
         let { edad } = req.params;
         animalSchema.find({edad:{$gte:edad}}).then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
 );
 
 router.get(
-    "/animalitos/less/:edad",(req,res)=>{
+    "/animalitos/less/:edad",verifyToken,(req,res)=>{
         let { edad } = req.params;
         animalSchema.find({edad:{$lt:edad}}).then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
 );
 
 router.get(
-    "/animalitos/lessequal/:edad",(req,res)=>{
+    "/animalitos/lessequal/:edad",verifyToken,(req,res)=>{
         let { edad } = req.params;
         animalSchema.find({edad:{$lte:edad}}).then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
 );
 
 router.get(
-    "/animalitos/in/:edad",(req,res)=>{
+    "/animalitos/in/:edad",verifyToken,(req,res)=>{
         let { edad } = req.params;
         let edadArray=edad.split(',').map(e => Number(e));
         animalSchema.find({edad:{$in:edadArray}}).then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
@@ -66,7 +67,7 @@ router.get(
 );
 
 router.get(
-    "/animalitos/:id", (req, res) => {
+    "/animalitos/:id",verifyToken, (req, res) => {
         const { id } = req.params;
         animalSchema
             .findById(id)
@@ -76,7 +77,7 @@ router.get(
 );
 
 router.put(
-    "/animalitos/:id", (req, res) => {
+    "/animalitos/:id",verifyToken, (req, res) => {
         let { id } = req.params;
         let { nombre, edad, tipo, fecha } = req.body;
         animalSchema
@@ -89,7 +90,7 @@ router.put(
 );
 
 router.delete(
-    "/animalitos/:id", (req, res) => {
+    "/animalitos/:id",verifyToken, (req, res) => {
         const { id } = req.params;
         animalSchema
             .findByIdAndDelete(id)
