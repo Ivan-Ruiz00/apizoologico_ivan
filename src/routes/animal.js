@@ -11,7 +11,7 @@ router.post(
 );
 
 router.get(
-    "/animalitos",verifyToken,(req,res)=>{
+    "/animalitos",(req,res)=>{
         animalSchema.find().then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
 );
