@@ -3,6 +3,7 @@ const router = express.Router(); //manejador de rutas de express
 const userSchema = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+//Registro de usuarios
 router.post("/signup", async (req, res) => {
     const { usuario, correo, clave } = req.body;
     const user = new userSchema({
