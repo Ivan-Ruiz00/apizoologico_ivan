@@ -4,7 +4,7 @@ const animalSchema=require("../models/animalModel");
 const verifyToken = require('./validate_token');
 
 router.post(
-    "/animalitos",verifyToken,(req,res)=>{
+    "/animalitos",(req,res)=>{
         let animal=animalSchema(req.body);
         animal.save().then((data)=>res.json(data)).catch((error)=>res.json({message:error}));
     }
@@ -67,7 +67,7 @@ router.get(
 );
 
 router.get(
-    "/animalitos/:id",verifyToken, (req, res) => {
+    "/animalitos/:id", (req, res) => {
         const { id } = req.params;
         animalSchema
             .findById(id)
@@ -77,7 +77,7 @@ router.get(
 );
 
 router.put(
-    "/animalitos/:id",verifyToken, (req, res) => {
+    "/animalitos/:id", (req, res) => {
         let { id } = req.params;
         let { nombre, edad, tipo, fecha } = req.body;
         animalSchema
